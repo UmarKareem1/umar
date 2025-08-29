@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            display: flex;
+            align-self: center;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 40px 12px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .notification-icons span {
+            width: 35px;
+            height: 35px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face') center/cover;
+        }
+
+        .main-content {
+            display: flex;
+        }
+        .content-area {
+            flex: 1;
+            padding: 30px;
+             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .hero-content {
+            display: flex;
+            align-items: center; 
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+            background-image:url('../HTML/Multimedia/image/doctor\ image.png') ;
+            
+        }
+
+        .doctor-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face') center/cover;
+        }
+
+        .hero-text {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.2;
+            justify-content: center;
+        }
+        .consent{
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 30px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .metric-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .metric-icon.doctors { background: #f44336; }
+        .metric-icon.patients { background: #2196f3; }
+        .metric-icon.report { background: #4caf50; }
+        .metric-icon.balance { background: #ff9800; }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .metric-change {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .change-positive {
+            color: #4caf50;
+        }
+
+        .change-negative {
+            color: #f44336;
+        }
+
+        .chart-placeholder {
+            height: 60px;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            border-radius: 8px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(45deg, #2196f3, #1976d2);
+            clip-path: polygon(0 100%, 20% 60%, 40% 80%, 60% 40%, 80% 70%, 100% 20%, 100% 100%);
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .hospital-overview {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .overview-item {
+            text-align: center;
+            padding: 20px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .overview-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .overview-label {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .appointment-section {
+            background: #2c3e50;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .appointment-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .appointment-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .appointment-btn {
+            background: white;
+            color: #333;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gender-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+         .pie-chart {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #ff9800 0deg 104.4deg,
+                #2196f3 104.4deg 270deg,
+                #4caf50 270deg 360deg
+            );
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+         .pie-chart::after {
+            content: '100%';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .gender-legend {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-color.female { background: #ff9800; }
+        .legend-color.male { background: #2196f3; }
+        .legend-color.child { background: #4caf50; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="logo"><img src="../HTML/Multimedia/image/Medical Logo 1.png" alt=""></div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="header-right">
+                <div class="notification-icons">
+                    <span>📞</span>
+                    <span>🔔</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar"></div>
+                    <span>Kareem Umar</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-content"> 
+            <div class="sidebar">
+                    <img src="../HTML/Multimedia/image/Frame 15.png" alt="">
+            </div>
+            <div class="content-area"> 
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="doctor-image"></div>
+                        <div class="hero-text">
+                            YOUR HEALTH IS<br>
+                            OUR PRIORITY
+                        </div>
+                    </div>
+                </div>
+                <div class="consent">
+                    <div>Doctors</div>
+                    <div>Patients</div>
+                    <div>Report</div>
+                    <div>Balance</div>
+                </div>
+                <div class="metrics-grid">
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Doctors</div>
+                            <div class="metric-icon doctors">👨‍⚕️</div>
+                        </div>
+                        <div class="metric-value">500+</div>
+                        <div class="metric-change">
+                            <span class="change-positive">↗ 96%</span>
+                            <span class="change-negative">↘ 2%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="met7thjuyric-title">Patients</div>
+                            <div class="metric-icon patients">👥</div>
+                        </div>
+                        <div class="metric-value">800+</div>
+                        <div class="metric-change">
+                            <span class="change-positive">↗ 65%</span>
+                            <span class="change-negative">↘ 25%</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Report</div>
+                            <div class="metric-icon report">📊</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; margin: 15px 0;">
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                                <span style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%;"></span>
+                                Doctors
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                                <span style="width: 8px; height: 8px; background: #2196f3; border-radius: 50%;"></span>
+                                Patients
+                            </span>
+                        </div>
+                        <div class="chart-placeholder"></div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">Balance</div>
+                            <div class="metric-icon balance">💰</div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; margin: 15px 0;">
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                                <span style="width: 8px; height: 8px; background: #2196f3; border-radius: 50%;"></span>
+                                Income
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                                <span style="width: 8px; height: 8px; background: #f44336; border-radius: 50%;"></span>
+                                Outcome
+                            </span>
+                        </div>
+                        <div class="chart-placeholder" style="background: linear-gradient(45deg, #e8f5e8, #c8e6c9);"></div>
+                    </div>
+                </div>
+                <div class="bottom-section">
+                    <div class="hospital-overview">
+                        <h3 class="section-title">Hospital Overview</h3>
+                        <div class="overview-grid">
+                            <div class="overview-item">
+                                <div class="overview-value">900</div>
+                                <div class="overview-label">Total Staff</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value">1000</div>
+                                <div class="overview-label">Total Bed</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value">100</div>
+                                <div class="overview-label">Daily Surgery</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value">500</div>
+                                <div class="overview-label">New Patient</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value">200</div>
+                                <div class="overview-label">Daily Released</div>
+                            </div>
+                        </div>
+                        <div class="appointment-section">
+                            <div class="appointment-content">
+                                <div class="appointment-title">BOOK YOUR APPOINTMENTS<br>WITH EASE</div>
+                                <button class="appointment-btn">Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gender-section">
+                        <h3 class="section-title">Gender</h3>
+                        <div class="pie-chart"></div>
+                        <div class="gender-legend">
+                            <div class="legend-item">
+                                <div class="legend-color female"></div>
+                                <span>Female<br>30%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color male"></div>
+                                <span>Male<br>46%</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color child"></div>
+                                <span>Child<br>29%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
