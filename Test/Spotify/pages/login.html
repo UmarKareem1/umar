@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in to Spotify</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #121212;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .logo img{
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 48px;
+            /* background-color: #ffffff; */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* .logo::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background-color: #000000;
+            border-radius: 50%;
+            position: relative;
+        } */
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, transparent 30%, #ffffff 30%, #ffffff 70%, transparent 70%),
+                        linear-gradient(-45deg, transparent 30%, #ffffff 30%, #ffffff 70%, transparent 70%);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.2;
+        }
+
+        .social-buttons {
+            margin-bottom: 32px;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 12px 24px;
+            margin-bottom: 12px;
+            background-color: transparent;
+            border: 1px solid #727272;
+            border-radius: 500px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            border-color: #ffffff;
+            transform: scale(1.04);
+        }
+
+        .social-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .google-icon::before {
+            content: 'G';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .facebook-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #1877f2;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .facebook-icon::before {
+            content: 'f';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .apple-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .apple-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 14px;
+            background-color: #000000;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .divider {
+            margin: 32px 0;
+            position: relative;
+            height: 1px;
+            background-color: #292929;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: #121212;
+            border: 1px solid #727272;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: #ffffff;
+        }
+
+        .form-input::placeholder {
+            color: #a7a7a7;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 14px 32px;
+            background-color: #1db954;
+            border: none;
+            border-radius: 500px;
+            color: #000000;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 32px;
+            transition: all 0.2s ease;
+        }
+
+        .continue-btn:hover {
+            background-color: #1ed760;
+            transform: scale(1.04);
+        }
+
+        .signup-link {
+            font-size: 16px;
+            color: #a7a7a7;
+            margin-bottom: 32px;
+        }
+
+        .signup-link a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .signup-link a:hover {
+            text-decoration: none;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #a7a7a7;
+            line-height: 1.4;
+        }
+
+        .footer-text a {
+            color: #a7a7a7;
+            text-decoration: underline;
+        }
+
+        .footer-text a:hover {
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 24px;
+            }
+
+            .logo {
+                margin-bottom: 32px;
+            }
+
+            .social-buttons {
+                margin-bottom: 24px;
+            }
+
+            .divider {
+                margin: 24px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .social-btn {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+
+            .continue-btn {
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="../../media/500px-Spotify_icon.svg.png" alt="">
+        </div>
+        
+        <h1>Log in to Spotify</h1>
+        
+        <div class="social-buttons">
+            <button class="social-btn">
+                <div class="google-icon"></div>
+                Continue with Google
+            </button>
+            
+            <button class="social-btn">
+                <div class="facebook-icon"></div>
+                Continue with Facebook
+            </button>
+            
+            <button class="social-btn">
+                <div class="apple-icon"></div>
+                Continue with Apple
+            </button>
+            
+            <button class="social-btn">
+                Continue with phone number
+            </button>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <form>
+            <div class="form-group">
+                <label class="form-label" for="email">Email or username</label>
+                <input 
+                    type="text" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="Email or username"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+        
+        <div class="signup-link">
+            Don't have an account? <a href="#">Sign up for Spotify</a>
+        </div>
+        
+        <div class="footer-text">
+            This site is protected by reCAPTCHA and the Google 
+            <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a> apply.
+        </div>
+    </div>
+</body>
+</html>

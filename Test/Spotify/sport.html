@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background-color: #000;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #282828;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .spotify-logo {
+            width: 32px;
+            height: 32px;
+            background-color: #1db954;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 364px;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 48px 12px 16px;
+            background-color: #242424;
+            border: none;
+            border-radius: 500px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .search-input::placeholder {
+            color: #a7a7a7;
+        }
+
+        .browse-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #a7a7a7;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 32px;
+            color: #a7a7a7;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .header-links a {
+            color: #a7a7a7;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .install-app {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #a7a7a7;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .sign-up {
+            color: #a7a7a7;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .log-in-btn {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 32px;
+            border-radius: 500px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 420px;
+            background-color: #000;
+            padding: 24px;
+            border-right: 1px solid #282828;
+        }
+
+        .library-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .library-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #a7a7a7;
+        }
+
+        .plus-icon {
+            width: 16px;
+            height: 16px;
+            background-color: #a7a7a7;
+        }
+
+        .create-playlist {
+            margin-bottom: 24px;
+        }
+
+        .create-playlist h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .create-playlist p {
+            font-size: 14px;
+            color: #a7a7a7;
+            margin-bottom: 20px;
+        }
+
+        .create-playlist-btn {
+            background-color: #fff;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 500px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .find-podcasts {
+            margin-bottom: 40px;
+        }
+
+        .find-podcasts h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: #a7a7a7;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .language-btn {
+            background: none;
+            border: 1px solid #727272;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-content {
+            flex: 1;
+            background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .show-all {
+            color: #a7a7a7;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .song-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .song-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background-color: #1db954;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .song-card:hover .play-button {
+            opacity: 1;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .song-artist {
+            font-size: 14px;
+            color: #a7a7a7;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .explicit-badge {
+            background-color: #a7a7a7;
+            color: #000;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+        }
+
+        .artist-card {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .artist-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+        }
+
+        .artist-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .artist-type {
+            font-size: 14px;
+            color: #a7a7a7;
+        }
+
+        .signup-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #af2896, #509bf5);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .banner-text {
+            font-size: 14px;
+        }
+
+        .banner-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .signup-free-btn {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 32px;
+            border-radius: 500px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="spotify-logo">♪</div>
+            <div class="home-icon"></div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="What do you want to play?">
+                <div class="browse-icon"></div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-links">
+                <a href="#">Premium</a>
+                <a href="#">Support</a>
+                <a href="#">Download</a>
+            </div>
+            <div class="header-actions">
+                <div class="install-app">
+                    <span>⬇</span>
+                    <span>Install App</span>
+                </div>
+                <a href="#" class="sign-up">Sign up</a>
+                <a href="#" class="log-in-btn">Log in</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="library-header">
+                <h2 class="library-title">Your Library</h2>
+                <div class="plus-icon">+</div>
+            </div>
+
+            <div class="create-playlist">
+                <h3>Create your first playlist</h3>
+                <p>It's easy, we'll help you</p>
+                <button class="create-playlist-btn">Create playlist</button>
+            </div>
+
+            <div class="find-podcasts">
+                <h3>Let's find some podcasts to follow</h3>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Legal</a>
+                <a href="#">Safety & Privacy Center</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookies</a>
+                <a href="#">About Ads</a>
+                <a href="#">Accessibility</a>
+                <a href="#">Cookies</a>
+            </div>
+
+            <button class="language-btn">
+                <span>🌐</span>
+                <span>English</span>
+            </button>
+        </aside>
+
+        <main class="main-content">
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Trending songs</h2>
+                    <a href="#" class="show-all">Show all</a>
+                </div>
+
+                <div class="trending-grid">
+                    <div class="song-card">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273c4dee8b4c2d0b4b8b8b8b8b8" alt="Calculate II - II" class="song-image">
+                        <div class="play-button">▶</div>
+                        <h3 class="song-title">Calculate II - II</h3>
+                        <div class="song-artist">
+                            <span class="explicit-badge">E</span>
+                            <span>Kidd Carder, Young Jonn</span>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273f8b8b8b8b8b8b8b8b8b8b8b8" alt="PAY ME" class="song-image">
+                        <div class="play-button">▶</div>
+                        <h3 class="song-title">PAY ME (feat. Stormzy and Zlatan)</h3>
+                        <div class="song-artist">
+                            <span>ODUMODUBLVCK, Stormzy, Zlatan</span>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273a8a8a8a8a8a8a8a8a8a8a8a8" alt="you" class="song-image">
+                        <div class="play-button">▶</div>
+                        <h3 class="song-title">you</h3>
+                        <div class="song-artist">
+                            <span>FOLA</span>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273d8d8d8d8d8d8d8d8d8d8d8d8" alt="Different Species" class="song-image">
+                        <div class="play-button">▶</div>
+                        <h3 class="song-title">Different Species (feat. Gunna)</h3>
+                        <div class="song-artist">
+                            <span class="explicit-badge">E</span>
+                            <span>Offset, Gunna</span>
+                        </div>
+                    </div>
+
+                    <div class="song-card">
+                        <img src="https://i.scdn.co/image/ab67616d0000b273e8e8e8e8e8e8e8e8e8e8e8e8" alt="Everlasting Taker" class="song-image">
+                        <div class="play-button">▶</div>
+                        <h3 class="song-title">Everlasting Taker</h3>
+                        <div class="song-artist">
+                            <span>Blaqbonez</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-header">
+                    <h2 class="section-title">Popular artists</h2>
+                    <a href="#" class="show-all">Show all</a>
+                </div>
+
+                <div class="artists-grid">
+                    <div class="artist-card">
+                        <img src="https://i.scdn.co/image/ab6761610000e5eb8b8b8b8b8b8b8b8b8b8b8b8b" alt="Artist 1" class="artist-image">
+                        <h3 class="artist-name">Artist Name</h3>
+                        <p class="artist-type">Artist</p>
+                    </div>
+
+                    <div class="artist-card">
+                        <img src="https://i.scdn.co/image/ab6761610000e5eba8a8a8a8a8a8a8a8a8a8a8a8" alt="Artist 2" class="artist-image">
+                        <h3 class="artist-name">Artist Name</h3>
+                        <p class="artist-type">Artist</p>
+                    </div>
+
+                    <div class="artist-card">
+                        <img src="https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8" alt="Artist 3" class="artist-image">
+                        <h3 class="artist-name">Artist Name</h3>
+                        <p class="artist-type">Artist</p>
+                    </div>
+
+                    <div class="artist-card">
+                        <img src="https://i.scdn.co/image/ab6761610000e5ebd8d8d8d8d8d8d8d8d8d8d8d8" alt="Artist 4" class="artist-image">
+                        <h3 class="artist-name">Artist Name</h3>
+                        <p class="artist-type">Artist</p>
+                    </div>
+
+                    <div class="artist-card">
+                        <img src="https://i.scdn.co/image/ab6761610000e5ebe8e8e8e8e8e8e8e8e8e8e8e8" alt="Artist 5" class="artist-image">
+                        <h3 class="artist-name">Artist Name</h3>
+                        <p class="artist-type">Artist</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="signup-banner">
+        <div class="banner-text">
+            <div class="banner-title">Preview of Spotify</div>
+            <div>Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.</div>
+        </div>
+        <a href="#" class="signup-free-btn">Sign up free</a>
+    </div>
+</body>
+</html>
