@@ -3,544 +3,746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Clone</title>
+    <title>Spotify - Web Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
 
-        .header {
-            background-color: #000;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #282828;
-        }
+/* Top Navigation */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #000;
+    border-bottom: 1px solid #282828;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
 
-        .spotify-logo {
-            width: 32px;
-            height: 32px;
-            background-color: #1db954;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-        }
+.spotify-logo {
+    font-size: 32px;
+    color: #1db954;
+}
 
-        .home-icon {
-            width: 24px;
-            height: 24px;
-            background-color: #fff;
-            border-radius: 4px;
-        }
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 
-        .search-container {
-            position: relative;
-            max-width: 364px;
-            width: 100%;
-        }
+.nav-icons i {
+    font-size: 20px;
+    color: #b3b3b3;
+    cursor: pointer;
+}
 
-        .search-input {
-            width: 100%;
-            padding: 12px 48px 12px 16px;
-            background-color: #242424;
-            border: none;
-            border-radius: 500px;
-            color: #fff;
-            font-size: 14px;
-        }
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #242424;
+    border-radius: 500px;
+    padding: 12px 16px;
+    gap: 12px;
+    min-width: 364px;
+}
 
-        .search-input::placeholder {
-            color: #a7a7a7;
-        }
+.search-input {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+}
 
-        .browse-icon {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background-color: #a7a7a7;
-        }
+.search-input::placeholder {
+    color: #b3b3b3;
+}
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
 
-        .header-links {
-            display: flex;
-            gap: 32px;
-            color: #a7a7a7;
-            font-size: 16px;
-            font-weight: 700;
-        }
+.nav-link {
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
 
-        .header-links a {
-            color: #a7a7a7;
-            text-decoration: none;
-        }
+.nav-link:hover {
+    color: #fff;
+}
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+.install-app {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        .install-app {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #a7a7a7;
-            font-size: 16px;
-            font-weight: 700;
-        }
+.login-btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 500px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
 
-        .sign-up {
-            color: #a7a7a7;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-        }
+.login-btn:hover {
+    transform: scale(1.04);
+}
 
-        .log-in-btn {
-            background-color: #fff;
-            color: #000;
-            padding: 12px 32px;
-            border-radius: 500px;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-        }
+/* Main Container */
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 90px);
+}
 
-        .main-container {
-            display: flex;
-            height: calc(100vh - 80px);
-        }
+/* Sidebar */
+.sidebar {
+    width: 420px;
+    background-color: #000;
+    padding: 24px;
+    border-right: 1px solid #282828;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-        .sidebar {
-            width: 420px;
-            background-color: #000;
-            padding: 24px;
-            border-right: 1px solid #282828;
-        }
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
 
-        .library-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 32px;
-        }
+.library-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #b3b3b3;
+}
 
-        .library-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #a7a7a7;
-        }
+.library-header i {
+    font-size: 16px;
+    color: #b3b3b3;
+    cursor: pointer;
+}
 
-        .plus-icon {
-            width: 16px;
-            height: 16px;
-            background-color: #a7a7a7;
-        }
+.playlist-creation {
+    background-color: #242424;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
 
-        .create-playlist {
-            margin-bottom: 24px;
-        }
+.playlist-creation h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
 
-        .create-playlist h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+.playlist-creation p {
+    font-size: 14px;
+    color: #b3b3b3;
+    margin-bottom: 20px;
+}
 
-        .create-playlist p {
-            font-size: 14px;
-            color: #a7a7a7;
-            margin-bottom: 20px;
-        }
+.create-playlist-btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 500px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
 
-        .create-playlist-btn {
-            background-color: #fff;
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 500px;
-            font-size: 14px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-        }
+.podcast-section h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
 
-        .find-podcasts {
-            margin-bottom: 40px;
-        }
+.sidebar-footer {
+    margin-top: auto;
+}
 
-        .find-podcasts h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+}
 
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+.footer-links a {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 11px;
+}
 
-        .footer-links a {
-            color: #a7a7a7;
-            font-size: 11px;
-            text-decoration: none;
-        }
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #727272;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
 
-        .language-btn {
-            background: none;
-            border: 1px solid #727272;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 24px;
+    background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
+    overflow-y: auto;
+}
 
-        .main-content {
-            flex: 1;
-            background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
-            padding: 24px;
-            overflow-y: auto;
-        }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
+.section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
 
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-        }
+.show-all {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
 
-        .show-all {
-            color: #a7a7a7;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-        }
+.show-all:hover {
+    color: #fff;
+}
 
-        .trending-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
+/* Songs Grid */
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+}
 
-        .song-card {
-            position: relative;
-            cursor: pointer;
-        }
+.song-card {
+    background-color: #181818;
+    padding: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    position: relative;
+}
 
-        .song-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
+.song-card:hover {
+    background-color: #282828;
+}
 
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 48px;
-            height: 48px;
-            background-color: #1db954;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+.song-image {
+    position: relative;
+    margin-bottom: 16px;
+}
 
-        .song-card:hover .play-button {
-            opacity: 1;
-        }
+.song-image img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+}
 
-        .song-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+.play-button {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    background-color: #1db954;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    cursor: pointer;
+}
 
-        .song-artist {
-            font-size: 14px;
-            color: #a7a7a7;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+.song-card:hover .play-button {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        .explicit-badge {
-            background-color: #a7a7a7;
-            color: #000;
-            font-size: 10px;
-            padding: 2px 4px;
-            border-radius: 2px;
-            font-weight: 700;
-        }
+.play-button i {
+    color: #000;
+    font-size: 16px;
+    margin-left: 2px;
+}
 
-        .artists-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 24px;
-        }
+.song-info h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .artist-card {
-            text-align: center;
-            cursor: pointer;
-        }
+.song-info p {
+    font-size: 14px;
+    color: #b3b3b3;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
-        .artist-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 16px;
-        }
+.explicit {
+    background-color: #b3b3b3;
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
 
-        .artist-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+/* Artists Grid */
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+}
 
-        .artist-type {
-            font-size: 14px;
-            color: #a7a7a7;
-        }
+.artist-card {
+    background-color: #181818;
+    padding: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
 
-        .signup-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(90deg, #af2896, #509bf5);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.artist-card:hover {
+    background-color: #282828;
+}
 
-        .banner-text {
-            font-size: 14px;
-        }
+.artist-image {
+    position: relative;
+    margin-bottom: 16px;
+}
 
-        .banner-title {
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+.artist-image img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
-        .signup-free-btn {
-            background-color: #fff;
-            color: #000;
-            padding: 12px 32px;
-            border-radius: 500px;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-        }
+.artist-info h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.artist-info p {
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+/* Preview Banner */
+.preview-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #af2896, #509bf5);
+    padding: 12px 16px;
+    z-index: 100;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.banner-text h4 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.banner-text p {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.signup-btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 500px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.signup-btn:hover {
+    transform: scale(1.04);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .songs-grid,
+    .artists-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 16px;
+        border-right: none;
+        border-bottom: 1px solid #282828;
+    }
+    
+    .nav-right {
+        gap: 12px;
+    }
+    
+    .nav-link {
+        display: none;
+    }
+    
+    .nav-link.install-app,
+    .login-btn {
+        display: block;
+    }
+    
+    .search-container {
+        min-width: 200px;
+    }
+    
+    .songs-grid,
+    .artists-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    
+    .main-content {
+        padding: 16px;
+    }
+    
+    .banner-content {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 12px 16px;
+    }
+    
+    .nav-left {
+        gap: 12px;
+    }
+    
+    .search-container {
+        min-width: 150px;
+        padding: 8px 12px;
+    }
+    
+    .songs-grid,
+    .artists-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .sidebar {
+        padding: 12px;
+    }
+    
+    .playlist-creation {
+        padding: 16px;
+    }
+}
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-left">
-            <div class="spotify-logo">♪</div>
-            <div class="home-icon"></div>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="What do you want to play?">
-                <div class="browse-icon"></div>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="spotify-logo">
+                <i class="fab fa-spotify"></i>
             </div>
-        </div>
-        <div class="header-right">
-            <div class="header-links">
-                <a href="#">Premium</a>
-                <a href="#">Support</a>
-                <a href="#">Download</a>
-            </div>
-            <div class="header-actions">
-                <div class="install-app">
-                    <span>⬇</span>
-                    <span>Install App</span>
+            <div class="nav-icons">
+                <i class="fas fa-home"></i>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="What do you want to play?" class="search-input">
                 </div>
-                <a href="#" class="sign-up">Sign up</a>
-                <a href="#" class="log-in-btn">Log in</a>
+                <i class="fas fa-list"></i>
             </div>
         </div>
-    </header>
+        <div class="nav-right">
+            <span class="nav-link">Premium</span>
+            <span class="nav-link">Support</span>
+            <span class="nav-link">Download</span>
+            <span class="nav-link install-app">
+                <i class="fas fa-download"></i>
+                Install App
+            </span>
+            <span class="nav-link">Sign up</span>
+            <button class="login-btn">Log in</button>
+        </div>
+    </nav>
 
     <div class="main-container">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="library-header">
-                <h2 class="library-title">Your Library</h2>
-                <div class="plus-icon">+</div>
+            <div class="library-section">
+                <div class="library-header">
+                    <h3>Your Library</h3>
+                    <i class="fas fa-plus"></i>
+                </div>
+                
+                <div class="playlist-creation">
+                    <h4>Create your first playlist</h4>
+                    <p>It's easy, we'll help you</p>
+                    <button class="create-playlist-btn">Create playlist</button>
+                </div>
+                
+                <div class="podcast-section">
+                    <h4>Let's find some podcasts to follow</h4>
+                </div>
             </div>
-
-            <div class="create-playlist">
-                <h3>Create your first playlist</h3>
-                <p>It's easy, we'll help you</p>
-                <button class="create-playlist-btn">Create playlist</button>
+            
+            <div class="sidebar-footer">
+                <div class="footer-links">
+                    <a href="#">Legal</a>
+                    <a href="#">Safety & Privacy Center</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">About Ads</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <div class="language-selector">
+                    <i class="fas fa-globe"></i>
+                    <span>English</span>
+                </div>
             </div>
-
-            <div class="find-podcasts">
-                <h3>Let's find some podcasts to follow</h3>
-            </div>
-
-            <div class="footer-links">
-                <a href="#">Legal</a>
-                <a href="#">Safety & Privacy Center</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Cookies</a>
-                <a href="#">About Ads</a>
-                <a href="#">Accessibility</a>
-                <a href="#">Cookies</a>
-            </div>
-
-            <button class="language-btn">
-                <span>🌐</span>
-                <span>English</span>
-            </button>
         </aside>
 
+        <!-- Main Content -->
         <main class="main-content">
-            <section>
+            <!-- Trending Songs Section -->
+            <section class="trending-section">
                 <div class="section-header">
-                    <h2 class="section-title">Trending songs</h2>
+                    <h2>Trending songs</h2>
                     <a href="#" class="show-all">Show all</a>
                 </div>
-
-                <div class="trending-grid">
+                
+                <div class="songs-grid">
                     <div class="song-card">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273c4dee8b4c2d0b4b8b8b8b8b8" alt="Calculate II - II" class="song-image">
-                        <div class="play-button">▶</div>
-                        <h3 class="song-title">Calculate II - II</h3>
-                        <div class="song-artist">
-                            <span class="explicit-badge">E</span>
-                            <span>Kidd Carder, Young Jonn</span>
+                        <div class="song-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" alt="Calculate II - II">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="song-info">
+                            <h4>Calculate II - II</h4>
+                            <p><span class="explicit">E</span> Kidd Carder, Young Jonn</p>
                         </div>
                     </div>
-
+                    
                     <div class="song-card">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273f8b8b8b8b8b8b8b8b8b8b8b8" alt="PAY ME" class="song-image">
-                        <div class="play-button">▶</div>
-                        <h3 class="song-title">PAY ME (feat. Stormzy and Zlatan)</h3>
-                        <div class="song-artist">
-                            <span>ODUMODUBLVCK, Stormzy, Zlatan</span>
+                        <div class="song-image">
+                            <img src="https://images.unsplash.com/photo-1571974599782-87624638275c?w=300&h=300&fit=crop" alt="PAY ME">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="song-info">
+                            <h4>PAY ME (feat. Stormzy and Zlatan)</h4>
+                            <p>ODUMODUBLVCK, Stormzy, Zlatan</p>
                         </div>
                     </div>
-
+                    
                     <div class="song-card">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273a8a8a8a8a8a8a8a8a8a8a8a8" alt="you" class="song-image">
-                        <div class="play-button">▶</div>
-                        <h3 class="song-title">you</h3>
-                        <div class="song-artist">
-                            <span>FOLA</span>
+                        <div class="song-image">
+                            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=300&h=300&fit=crop" alt="you">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="song-info">
+                            <h4>you</h4>
+                            <p>FOLA</p>
                         </div>
                     </div>
-
+                    
                     <div class="song-card">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273d8d8d8d8d8d8d8d8d8d8d8d8" alt="Different Species" class="song-image">
-                        <div class="play-button">▶</div>
-                        <h3 class="song-title">Different Species (feat. Gunna)</h3>
-                        <div class="song-artist">
-                            <span class="explicit-badge">E</span>
-                            <span>Offset, Gunna</span>
+                        <div class="song-image">
+                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop" alt="Different Species">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="song-info">
+                            <h4>Different Species (feat. Gunna)</h4>
+                            <p><span class="explicit">E</span> Offset, Gunna</p>
                         </div>
                     </div>
-
+                    
                     <div class="song-card">
-                        <img src="https://i.scdn.co/image/ab67616d0000b273e8e8e8e8e8e8e8e8e8e8e8e8" alt="Everlasting Taker" class="song-image">
-                        <div class="play-button">▶</div>
-                        <h3 class="song-title">Everlasting Taker</h3>
-                        <div class="song-artist">
-                            <span>Blaqbonez</span>
+                        <div class="song-image">
+                            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" alt="Everlasting Taker">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="song-info">
+                            <h4>Everlasting Taker</h4>
+                            <p>Blaqbonez</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section>
+            <!-- Popular Artists Section -->
+            <section class="artists-section">
                 <div class="section-header">
-                    <h2 class="section-title">Popular artists</h2>
+                    <h2>Popular artists</h2>
                     <a href="#" class="show-all">Show all</a>
                 </div>
-
+                
                 <div class="artists-grid">
                     <div class="artist-card">
-                        <img src="https://i.scdn.co/image/ab6761610000e5eb8b8b8b8b8b8b8b8b8b8b8b8b" alt="Artist 1" class="artist-image">
-                        <h3 class="artist-name">Artist Name</h3>
-                        <p class="artist-type">Artist</p>
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face" alt="Artist 1">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h4>Travis Scott</h4>
+                            <p>Artist</p>
+                        </div>
                     </div>
-
+                    
                     <div class="artist-card">
-                        <img src="https://i.scdn.co/image/ab6761610000e5eba8a8a8a8a8a8a8a8a8a8a8a8" alt="Artist 2" class="artist-image">
-                        <h3 class="artist-name">Artist Name</h3>
-                        <p class="artist-type">Artist</p>
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Artist 2">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h4>Drake</h4>
+                            <p>Artist</p>
+                        </div>
                     </div>
-
+                    
                     <div class="artist-card">
-                        <img src="https://i.scdn.co/image/ab6761610000e5ebc8c8c8c8c8c8c8c8c8c8c8c8" alt="Artist 3" class="artist-image">
-                        <h3 class="artist-name">Artist Name</h3>
-                        <p class="artist-type">Artist</p>
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" alt="Artist 3">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h4>The Weeknd</h4>
+                            <p>Artist</p>
+                        </div>
                     </div>
-
+                    
                     <div class="artist-card">
-                        <img src="https://i.scdn.co/image/ab6761610000e5ebd8d8d8d8d8d8d8d8d8d8d8d8" alt="Artist 4" class="artist-image">
-                        <h3 class="artist-name">Artist Name</h3>
-                        <p class="artist-type">Artist</p>
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face" alt="Artist 4">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h4>Post Malone</h4>
+                            <p>Artist</p>
+                        </div>
                     </div>
-
+                    
                     <div class="artist-card">
-                        <img src="https://i.scdn.co/image/ab6761610000e5ebe8e8e8e8e8e8e8e8e8e8e8e8" alt="Artist 5" class="artist-image">
-                        <h3 class="artist-name">Artist Name</h3>
-                        <p class="artist-type">Artist</p>
+                        <div class="artist-image">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=face" alt="Artist 5">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="artist-info">
+                            <h4>Kendrick Lamar</h4>
+                            <p>Artist</p>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <div class="signup-banner">
-        <div class="banner-text">
-            <div class="banner-title">Preview of Spotify</div>
-            <div>Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.</div>
+    <!-- Bottom Preview Banner -->
+    <div class="preview-banner">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h4>Preview of Spotify</h4>
+                <p>Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.</p>
+            </div>
+            <button class="signup-btn">Sign up free</button>
         </div>
-        <a href="#" class="signup-free-btn">Sign up free</a>
     </div>
 </body>
 </html>

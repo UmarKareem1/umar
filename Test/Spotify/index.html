@@ -318,13 +318,13 @@
 
         .artist-card {
             flex-shrink: 0;
-            min-width: 120px;
+            min-width: 120px; 
             text-align: center;
         }
 
         .artist-image {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 8px;
@@ -381,6 +381,7 @@
         
         .album-cover {
             width: 150px;
+            height: 150px;
             aspect-ratio: 1/1;
             border-radius: 8px;
             object-fit: cover;
@@ -413,8 +414,8 @@
         }
         
         .radio-cover {
-            width: 100%;
-            height: 100%;
+            width: 150;
+            height: 150px;
             object-fit: cover;
             border-radius: 8px;
         }
@@ -459,8 +460,8 @@
         }
         
         .chart-bg {
-            width: 100%;
-            height: 100%;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
         }
         
@@ -586,6 +587,129 @@
             font-weight: 700;
             text-decoration: none;
         }
+
+
+        /* ====== MOBILE RESPONSIVENESS ====== */
+@media (max-width: 1024px) {
+  /* Collapse sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  .main-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+}
+
+/* ====== TABLETS & SMALL LAPTOPS ====== */
+@media (max-width: 768px) {
+  /* Header adjustments */
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .nav-links {
+    display: none; /* Hide nav links on small screens like Spotify */
+  }
+
+  /* Trending songs grid turns into horizontal scroll */
+  .trending-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .song-card {
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .song-image {
+    width: 140px;
+    height: 140px;
+  }
+
+  /* Artists grid as horizontal scroll */
+  .artists-grid {
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .artist-card {
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .artist-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Footer responsiveness */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-column {
+    width: 100%;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .copyright {
+    text-align: center;
+  }
+}
+
+/* ====== EXTRA SMALL DEVICES (Phones ≤480px) ====== */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 16px;
+  }
+
+  .song-title {
+    font-size: 14px;
+  }
+
+  .artist-name {
+    font-size: 13px;
+  }
+
+  .album-title, .radio-title, .chart-title {
+    font-size: 13px;
+  }
+
+  /* Signup banner text smaller */
+  .signup-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .signup-free-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+      
     </style>
 </head>
 <body>
@@ -735,61 +859,61 @@
             
             <div class="artists-grid">
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/davido-artist/120/120.jpg" alt="Davido" class="artist-image">
+                    <img src="../media/popular 1.jpg" alt="Davido" class="artist-image">
                     <div class="artist-name">Davido</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/shallipopi-artist/120/120.jpg" alt="Shallipopi" class="artist-image">
+                    <img src="../media/popular2.jpg" alt="Shallipopi" class="artist-image">
                     <div class="artist-name">Shallipopi</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/asake-artist/120/120.jpg" alt="Asake" class="artist-image">
+                    <img src="../media/popular3.jpg" alt="Asake" class="artist-image">
                     <div class="artist-name">Asake</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/sevibez-artist/120/120.jpg" alt="Seyi Vibez" class="artist-image">
+                    <img src="../media/popular4.jpg" alt="Seyi Vibez" class="artist-image">
                     <div class="artist-name">Seyi Vibez</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/burnaboy-artist/120/120.jpg" alt="Burna Boy" class="artist-image">
+                    <img src="../media/popular5.jpg" alt="Burna Boy" class="artist-image">
                     <div class="artist-name">Burna Boy</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/odumodublvck-artist/120/120.jpg" alt="ODUMODUBLVCK" class="artist-image">
+                    <img src="../media/popular6.jpg" alt="ODUMODUBLVCK" class="artist-image">
                     <div class="artist-name">ODUMODUBLVCK</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/rema-artist/120/120.jpg" alt="Rema" class="artist-image">
+                    <img src="../media/popular7.jpg" alt="Rema" class="artist-image">
                     <div class="artist-name">Rema</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/wizkid-artist/120/120.jpg" alt="Wizkid" class="artist-image">
+                    <img src="../media/popular8.jpg" alt="Wizkid" class="artist-image">
                     <div class="artist-name">Wizkid</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/olamide-artist/120/120.jpg" alt="Olamide" class="artist-image">
+                    <img src="../media/popular9.jpg" alt="Olamide" class="artist-image">
                     <div class="artist-name">Olamide</div>
                     <div class="artist-type">Artist</div>
                 </div>
                 
                 <div class="artist-card">
-                    <img src="https://picsum.photos/seed/fido-artist/120/120.jpg" alt="Fido" class="artist-image">
+                    <img src="../media/popular10.jpg" alt="Fido" class="artist-image">
                     <div class="artist-name">Fido</div>
                     <div class="artist-type">Artist</div>
                 </div>
@@ -804,7 +928,7 @@
             
             <div class="horizontal-scroll">
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/give-davido/150/150.jpg" alt="Give" class="album-cover">
+                    <img src="../media/single1.jpg" alt="Give" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Give</div>
                         <div class="album-artist">Davido</div>
@@ -812,7 +936,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/mooyo-world/150/150.jpg" alt="Mooyo" class="album-cover">
+                    <img src="../media/single2.jpg" alt="Mooyo" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Mooyo</div>
                         <div class="album-artist">World</div>
@@ -820,7 +944,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/gen-z-stonekessley/150/150.jpg" alt="Gen Z" class="album-cover">
+                    <img src="../media/single3.jpg" alt="Gen Z" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Gen Z</div>
                         <div class="album-artist">Stonekessley</div>
@@ -828,7 +952,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/uncle-lemon-chase-kizz-daniel/150/150.jpg" alt="Lemon Chase" class="album-cover">
+                    <img src="../media/single4.jpg" alt="Lemon Chase" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Lemon Chase</div>
                         <div class="album-artist">Kizz Daniel</div>
@@ -836,7 +960,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/the-machine-is-coming-coumodublvck/150/150.jpg" alt="THE MACHINE IS COMING" class="album-cover">
+                    <img src="../media/single5.jpg" alt="THE MACHINE IS COMING" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">THE MACHINE IS COMING</div>
                         <div class="album-artist">COUMODUBLVCK</div>
@@ -844,7 +968,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/children-of-africa-seyi-vibez/150/150.jpg" alt="Children of Africa" class="album-cover">
+                    <img src="../media/single6.jpg" alt="Children of Africa" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Children of Africa</div>
                         <div class="album-artist">Seyi Vibez</div>
@@ -852,7 +976,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/large-boy-asake/150/150.jpg" alt="Large Boy" class="album-cover">
+                    <img src="../media/single7.jpg" alt="Large Boy" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Large Boy</div>
                         <div class="album-artist">Asake</div>
@@ -860,7 +984,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/me-the-vibe-acate/150/150.jpg" alt="Me The Vibe" class="album-cover">
+                    <img src="../media/single8.jpg" alt="Me The Vibe" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Me The Vibe</div>
                         <div class="album-artist">Acate</div>
@@ -868,7 +992,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/iron-boy-black-sherif/150/150.jpg" alt="Iron Boy" class="album-cover">
+                    <img src="../media/single9.jpg" alt="Iron Boy" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Iron Boy</div>
                         <div class="album-artist">Black Sherif</div>
@@ -876,7 +1000,7 @@
                 </div>
                 
                 <div class="album-card">
-                    <img src="https://picsum.photos/seed/lost-fola-rich-daniel/150/150.jpg" alt="Lost" class="album-cover">
+                    <img src="../media/single10.jpg" alt="Lost" class="album-cover">
                     <div class="album-info">
                         <div class="album-title">Lost</div>
                         <div class="album-artist">FOLA, Rich Daniel</div>
@@ -893,7 +1017,7 @@
             
             <div class="horizontal-scroll">
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/omah-lay-radio/180/180.jpg" alt="Omah Lay Radio" class="radio-cover">
+                    <img src="../media/radio1.jpg" alt="Omah Lay Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Omah Lay</div>
                         <div class="radio-description">With Kizz Daniel, King Promise, Fireboy DML and more</div>
@@ -901,7 +1025,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/ayo-maff-radio/180/180.jpg" alt="Ayo Maff Radio" class="radio-cover">
+                    <img src="../media/radio2.jpg" alt="Ayo Maff Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Ayo Maff</div>
                         <div class="radio-description">With Lijana, Burna Boy, Black Sherif and more</div>
@@ -909,7 +1033,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/bnxn-radio/180/180.jpg" alt="BNXN Radio" class="radio-cover">
+                    <img src="../media/radio3.jpg" alt="BNXN Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">BNXN</div>
                         <div class="radio-description">With Lijana, Burna Boy, Black Sherif and more</div>
@@ -917,7 +1041,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/fola-radio/180/180.jpg" alt="FOLA Radio" class="radio-cover">
+                    <img src="../media/radio4.jpg" alt="FOLA Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">FOLA</div>
                         <div class="radio-description">With Ayo Maff, Pido and more</div>
@@ -925,7 +1049,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/sevi-vibez-radio/180/180.jpg" alt="Seyi Vibez Radio" class="radio-cover">
+                    <img src="../media/radio5.jpg" alt="Seyi Vibez Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Seyi Vibez</div>
                         <div class="radio-description">With Ayo Maff, Timi Dakolo, Mayorkun and more</div>
@@ -933,7 +1057,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/olamide-radio/180/180.jpg" alt="Olamide Radio" class="radio-cover">
+                    <img src="../media/radio6.jpg" alt="Olamide Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Olamide</div>
                         <div class="radio-description">With Shaqpoppi, Fado, ODUMODUBLVCK and more</div>
@@ -941,7 +1065,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/asake-radio/180/180.jpg" alt="Asake Radio" class="radio-cover">
+                    <img src="../media/radio7.jpg" alt="Asake Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Asake</div>
                         <div class="radio-description">With Shaqpoppi, Fado, ODUMODUBLVCK and more</div>
@@ -949,7 +1073,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/wizkid-radio/180/180.jpg" alt="Wizkid Radio" class="radio-cover">
+                    <img src="../media/radio8.jpg" alt="Wizkid Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Wizkid</div>
                         <div class="radio-description">With Starboy, Wande Coal, Seyi Vibez and more</div>
@@ -957,7 +1081,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/davido-radio/180/180.jpg" alt="Davido Radio" class="radio-cover">
+                    <img src="../media/radio9.jpg" alt="Davido Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Davido</div>
                         <div class="radio-description">With Young John, Davido, Fado and more</div>
@@ -965,7 +1089,7 @@
                 </div>
                 
                 <div class="radio-card">
-                    <img src="https://picsum.photos/seed/burna-boy-radio/180/180.jpg" alt="Burna Boy Radio" class="radio-cover">
+                    <img src="../media/radio10.jpg" alt="Burna Boy Radio" class="radio-cover">
                     <div class="radio-info">
                         <div class="radio-title">Burna Boy</div>
                         <div class="radio-description">With Shallipoppi, Young Jonn, Davido and more</div>
@@ -982,7 +1106,7 @@
             
             <div class="charts-grid">
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/top-songs-global/160/160.jpg" alt="Top Songs Global" class="chart-bg">
+                    <img src="../media/charts1.jpg" alt="Top Songs Global" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Top Songs Global</div>
                         <div class="chart-subtitle">Weekly Music Charts</div>
@@ -990,7 +1114,7 @@
                 </div>
                 
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/top-songs-nigeria/160/160.jpg" alt="Top Songs Nigeria" class="chart-bg">
+                    <img src="../media/charts2.jpg" alt="Top Songs Nigeria" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Top Songs Nigeria</div>
                         <div class="chart-subtitle">Weekly Music Charts</div>
@@ -998,7 +1122,7 @@
                 </div>
                 
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/top-50-global/160/160.jpg" alt="Top 50 Global" class="chart-bg">
+                    <img src="../media/charts3.jpg" alt="Top 50 Global" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Top 50</div>
                         <div class="chart-subtitle">Global</div>
@@ -1006,7 +1130,7 @@
                 </div>
                 
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/top-50-nigeria/160/160.jpg" alt="Top 50 Nigeria" class="chart-bg">
+                    <img src="../media/charts4.jpg" alt="Top 50 Nigeria" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Top 50</div>
                         <div class="chart-subtitle">Nigeria</div>
@@ -1014,7 +1138,7 @@
                 </div>
                 
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/viral-50-global/160/160.jpg" alt="Viral 50 Global" class="chart-bg">
+                    <img src="../media/charts5.jpg" alt="Viral 50 Global" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Viral 50</div>
                         <div class="chart-subtitle">Global</div>
@@ -1022,7 +1146,7 @@
                 </div>
                 
                 <div class="chart-card">
-                    <img src="https://picsum.photos/seed/viral-50-nigeria/160/160.jpg" alt="Viral 50 Nigeria" class="chart-bg">
+                    <img src="../media/charts6.jpg" alt="Viral 50 Nigeria" class="chart-bg">
                     <div class="chart-info">
                         <div class="chart-title">Viral 50</div>
                         <div class="chart-subtitle">Nigeria</div>
